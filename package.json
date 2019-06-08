@@ -5,7 +5,6 @@
   "main": "./build/app.js",
   "scripts": {
     "build": "tsc -p ./",
-    "pretest": "tslint ./src/*",
     "test": "",
     "start": "node ./build/app.js",
     "dev": "nodemon"
