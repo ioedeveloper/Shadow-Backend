@@ -1,0 +1,45 @@
+{
+  "name": "shadow-backend",
+  "version": "1.0.0",
+  "description": "git shadow backend",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ioedeveloper/Shadow-Backend.git"
+  },
+  "keywords": [
+    "shadow",
+    "extension",
+    "git",
+    "git",
+    "extension",
+    "vscode",
+    "vscode",
+    "git"
+  ],
+  "author": "@ioedeveloper",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ioedeveloper/Shadow-Backend/issues"
+  },
+  "homepage": "https://github.com/ioedeveloper/Shadow-Backend#readme",
+  "dependencies": {
+    "chai": "^4.2.0",
+    "express": "^4.17.1",
+    "mocha": "^6.1.4",
+    "mongodb": "^3.2.7",
+    "ts-node": "^8.2.0",
+    "typeorm": "^0.2.18",
+    "typescript": "^3.5.1"
+  },
+  "devDependencies": {
+    "@types/chai": "^4.1.7",
+    "@types/express": "^4.17.0",
+    "@types/mocha": "^5.2.7",
+    "@types/node": "^12.0.7",
+    "tslint": "^5.17.0"
+  }
+}
