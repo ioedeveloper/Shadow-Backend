@@ -3,3 +3,6 @@ node_modules
 
 # secrets
 .env
+
+# dev_build
+build
