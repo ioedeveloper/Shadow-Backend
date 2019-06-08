@@ -5,7 +5,7 @@
   "main": "./build/app.js",
   "scripts": {
     "build": "tsc -p ./",
-    "pretest": "tslint --fix --ignore-path .gitignore .",
+    "pretest": "tslint --fix",
     "test": "mocha ./src/test",
     "start": "node ./build/app.js",
     "dev": "nodemon"

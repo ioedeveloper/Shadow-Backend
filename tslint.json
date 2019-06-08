@@ -1,0 +1,9 @@
+{
+    "extends": "tslint:latest",
+    "linterOptions": {
+        "exclude": [
+            "build",
+            "node_modules"
+        ]
+    }
+  }

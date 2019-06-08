@@ -1,1 +1,2 @@
-console.log('Initial Setup');
+// tslint:disable-next-line:no-console
+console.log("Initial Setup");
