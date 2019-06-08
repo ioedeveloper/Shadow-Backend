@@ -5,8 +5,8 @@
   "main": "./build/app.js",
   "scripts": {
     "build": "tsc -p ./",
-    "pretest": "tslint --fix",
-    "test": "mocha ./src/test",
+    "pretest": "tslint ./src/*",
+    "test": "",
     "start": "node ./build/app.js",
     "dev": "nodemon"
   },
