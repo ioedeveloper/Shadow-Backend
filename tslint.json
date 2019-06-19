@@ -5,5 +5,11 @@
             "build",
             "node_modules"
         ]
+    },
+    "rules": { 
+        "object-literal-sort-keys": false,
+        "quotemark": [true, "single"],
+        "only-arrow-functions": false,
+        "no-duplicate-imports": false
     }
-  }
+}

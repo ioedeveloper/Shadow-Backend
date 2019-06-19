@@ -2,11 +2,11 @@
   "name": "shadow-backend",
   "version": "1.0.0",
   "description": "git shadow backend",
-  "main": "./build/app.js",
+  "main": "./build/server.js",
   "scripts": {
     "build": "tsc -p ./",
     "test": "",
-    "start": "node ./build/app.js",
+    "start": "node ./build/server.js",
     "dev": "nodemon"
   },
   "repository": {
