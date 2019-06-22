@@ -10,6 +10,10 @@
         "object-literal-sort-keys": false,
         "quotemark": [true, "single"],
         "only-arrow-functions": false,
-        "no-duplicate-imports": false
+        "no-duplicate-imports": false,
+        "variable-name":false,
+        "member-access":false,
+        "curly":false,
+        "ordered-imports":false,
     }
 }
