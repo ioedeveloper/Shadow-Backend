@@ -1,8 +1,22 @@
-import { INewUser } from '../config/types/user';
-import { UserModel } from '../model/user';
+import { IUser } from '../config/types/user';
+import { UserDataService } from './userDataService';
 
-export default class UserService {
-    public async addUser(newUser: INewUser): Promise<UserModel> {
-        
+class UserService {
+
+    private _data: UserDataService;
+
+    constructor() {
+        this._data = new UserDataService();
+    }
+
+    public async addUser(newUser: IUser): Promise<IUser> {
+        try {
+            newUser = await this._data.create(newUser);
+            return newUser;
+        } catch (error) {
+            throw error;
+        }
     }
 }
+
+export { UserService };

@@ -3,13 +3,13 @@ import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 @Entity()
 export class UserModel {
     @PrimaryGeneratedColumn
-    id: number | null;
+    id: number;
 
     @Column
-    email: string | null;
+    email: string;
 
     @Column
-    extensionId: string | null;
+    extensionId: string;
 
     @Column
     deleted: boolean = false;
