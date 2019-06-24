@@ -2,11 +2,11 @@
   "name": "shadow-backend",
   "version": "1.0.0",
   "description": "git shadow backend",
-  "main": "./build/app.js",
+  "main": "./build/server.js",
   "scripts": {
     "build": "tsc -p ./",
     "test": "",
-    "start": "node ./build/app.js",
+    "start": "node ./build/server.js",
     "dev": "nodemon"
   },
   "repository": {
@@ -30,6 +30,7 @@
   },
   "homepage": "https://github.com/ioedeveloper/Shadow-Backend#readme",
   "dependencies": {
+    "body-parser": "^1.19.0",
     "chai": "^4.2.0",
     "express": "^4.17.1",
     "mocha": "^6.1.4",
@@ -42,6 +43,7 @@
     "@types/chai": "^4.1.7",
     "@types/express": "^4.17.0",
     "@types/mocha": "^5.2.7",
+    "@types/mongodb": "^3.1.28",
     "@types/node": "^12.0.7",
     "nodemon": "^1.19.1",
     "tslint": "^5.17.0"
