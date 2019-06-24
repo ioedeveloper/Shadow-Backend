@@ -1,5 +1,6 @@
+import { ObjectID } from 'typeorm';
 interface IUser {
-    id: number;
+    _id: ObjectID;
     email: string;
     extensionId: string;
     deleted: boolean;

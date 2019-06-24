@@ -1,16 +1,16 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, ObjectID, ObjectIdColumn, Column } from 'typeorm';
 
 @Entity()
 export class UserModel {
-    @PrimaryGeneratedColumn
-    id: number;
+    @ObjectIdColumn()
+    _id: ObjectID
 
-    @Column
+    @Column()
     email: string;
 
-    @Column
+    @Column()
     extensionId: string;
 
-    @Column
+    @Column()
     deleted: boolean = false;
 }

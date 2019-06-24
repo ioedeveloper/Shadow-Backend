@@ -1,19 +1,15 @@
-import { MongoRepository, getConnection, UpdateWriteOpResult } from 'typeorm';
+import { MongoRepository, getMongoRepository, UpdateWriteOpResult } from 'typeorm';
 import { UserModel } from '../model/user';
 
 export class UserDataService {
     private _db: MongoRepository<UserModel>;
 
-    constructor() {
-        this._db = getConnection().getMongoRepository(UserModel);
-    }
-
     public async create(newUser: UserModel): Promise<UserModel> {
         const userModel: UserModel = new UserModel();
-        userModel.id = newUser.id;
         userModel.email = newUser.email;
         userModel.extensionId = newUser.extensionId;
         try {
+            if (!this._db) await this._init();
             const user = await this._db.save(userModel);
             return user;
         } catch (error) {
@@ -26,6 +22,7 @@ export class UserDataService {
         if (!take) take = 10;
         query.deleted = false;
         try {
+            if (!this._db) await this._init();
             const users: UserModel[] = await this._db.find({
                 where: query,
                 skip,
@@ -40,6 +37,7 @@ export class UserDataService {
     public async findOneBy(query: UserModel): Promise<UserModel | undefined> {
         query.deleted = false;
         try {
+            if (!this._db) await this._init();
             const user: UserModel | undefined = await this._db.findOne(query);
             return user;
         } catch (error) {
@@ -48,8 +46,9 @@ export class UserDataService {
     }
 
     public async update(user: UserModel): Promise<UserModel> {
-        if (!user.id) {
+        if (!user._id) {
             try {
+                if (!this._db) await this._init();
                 const newUser = this.create(user);
                 return newUser;
             } catch (error) {
@@ -58,7 +57,8 @@ export class UserDataService {
         } else {
             user.deleted = false;
             try {
-                await this._db.findOneAndUpdate({id: user.id}, {
+                if (!this._db) await this._init();
+                await this._db.findOneAndUpdate({id: user._id}, {
                     $set: {
                         email: user.email,
                         extensionId: user.extensionId,
@@ -74,6 +74,7 @@ export class UserDataService {
     public async countBy(query: UserModel): Promise<number> {
         query.deleted = false;
         try {
+            if (!this._db) await this._init();
             const count = await this._db.count(query);
             return count;
         } catch (error) {
@@ -84,6 +85,7 @@ export class UserDataService {
     public async deleteBy(query: UserModel, userId: number): Promise<UpdateWriteOpResult> {
         query.deleted = false;
         try {
+            if (!this._db) await this._init();
             const result: UpdateWriteOpResult = await this._db.updateMany(query, {
                 $set: {
                     deleted: true,
@@ -94,5 +96,9 @@ export class UserDataService {
         } catch (error) {
             throw error;
         }
+    }
+
+    private async _init() {
+        this._db = getMongoRepository(UserModel);
     }
 }
