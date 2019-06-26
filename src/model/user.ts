@@ -1,7 +1,8 @@
 import { Entity, ObjectID, ObjectIdColumn, Column, OneToOne, JoinColumn } from 'typeorm';
+import { IUser } from '../config/types/user';
 
 @Entity()
-export class UserModel {
+export class UserModel{
     @ObjectIdColumn()
     _id: ObjectID
 
@@ -23,7 +24,6 @@ export class UserModel {
     @Column()
     deleted: boolean = false;
 
-    @OneToOne(type => UserModel)
-    @JoinColumn()
+    @OneToOne(type => UserModel, user => user._id)
     deletedBy: UserModel
 }
