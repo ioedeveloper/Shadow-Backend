@@ -1,5 +1,4 @@
-import { Entity, ObjectID, ObjectIdColumn, Column, OneToOne, JoinColumn } from 'typeorm';
-import { IUser } from '../config/types/user';
+import { Entity, ObjectID, ObjectIdColumn, Column, OneToOne } from 'typeorm';
 
 @Entity()
 export class UserModel{
@@ -16,10 +15,10 @@ export class UserModel{
     jwtRefreshToken: string
 
     @Column()
-    createdAt: Date
+    createdAt: Date = new Date
 
     @Column()
-    lastActive: Date
+    lastActive: Date = new Date
 
     @Column()
     deleted: boolean = false;

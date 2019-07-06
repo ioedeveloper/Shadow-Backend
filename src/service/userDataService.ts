@@ -8,6 +8,7 @@ export class UserDataService {
         const userModel: UserModel = new UserModel();
         userModel.email = newUser.email;
         userModel.extensionId = newUser.extensionId;
+        userModel.jwtRefreshToken = newUser.jwtRefreshToken;
         try {
             if (!this._db) await this._init();
             const user = await this._db.save(userModel);
