@@ -1,16 +1,28 @@
-import { Entity, ObjectID, ObjectIdColumn, Column } from 'typeorm';
+import { Entity, ObjectID, ObjectIdColumn, Column, OneToOne } from 'typeorm';
 
 @Entity()
-export class UserModel {
+export class User{
     @ObjectIdColumn()
-    _id: ObjectID
+    _id ?: ObjectID
 
     @Column()
-    email: string;
+    email ?: string;
 
     @Column()
-    extensionId: string;
+    extensionId ?: string;
 
     @Column()
-    deleted: boolean = false;
+    jwtRefreshToken ?: string
+
+    @Column()
+    createdAt ?: Date = new Date
+
+    @Column()
+    lastActive ?: Date = new Date
+
+    @Column()
+    deleted  ?: boolean = false;
+
+    @OneToOne(type => User, user => user._id)
+    deletedBy ?: User
 }
