@@ -25,17 +25,31 @@ class UserService {
     }
 
     public async checkUserExist(user: IUser): Promise<boolean> {
-        const existingUser = await this._data.findOneBy(user);
+        const existingUser = await this._data.findOneBy({
+            email: user.email,
+        });
         if (existingUser) return true;
         else return false;
     }
 
-    public async login(user: IUser): Promise<IUser | undefined> {
+    public async login(user: IUser): Promise<IUser> {
         try {
-            const existingUser = await this._data.findOneBy(user);
+            const existingUser = await this._data.findOneBy({
+                email: user.email,
+            });
             if (!existingUser) {
-                const error = new Error('User does not exist.');
+                const error = new Error();
+                error.message = 'User does not exist.';
                 throw error;
+            }
+            if (!existingUser.extensionId) {
+                const error = new Error();
+                error.message = 'Invalid user. Please sign up.';
+                throw error;
+            }
+            const result = await bcrypt.compare(user.extensionId, existingUser.extensionId);
+            if (result) {
+                return existingUser;
             }
             return existingUser;
         } catch (error) {
