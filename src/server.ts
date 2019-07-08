@@ -8,7 +8,17 @@ import * as UserEndpoint from './api/user';
 // establish database connection.
 (async () => {
     try {
-        const connection = await createConnection();
+        if (process.env.NODE_ENV === 'development') {
+            await createConnection();
+        } else {
+            await createConnection({
+                type: 'mongodb',
+                useNewUrlParser: true,
+                // tslint:disable-next-line:max-line-length
+                url: `mongodb+srv://${process.env.MONGODB_ATLAS_USERNAME}:${process.env.MONGODB_ATLAS_PASSWORD}@cluster0-uxdic.mongodb.net/test?retryWrites=true&w=majority`,
+                ssl: true,
+            });
+        }
         // tslint:disable-next-line:no-console
         console.log('Database Connection Established...');
 
@@ -38,6 +48,6 @@ import * as UserEndpoint from './api/user';
         });
     } catch (error) {
         // tslint:disable-next-line:no-console
-        console.log(`Error: ${error}`);
+        console.error(`Error: ${error}`);
     }
 })();
