@@ -3,7 +3,7 @@ import { User } from '../model/user';
 
 /**
  * UserDataService
- * @description Handles add user data access operations (CRUD)
+ * @description Handles all user data access operations (CRUD)
  */
 export class UserDataService {
     private _db: MongoRepository<User>;
