@@ -2,6 +2,8 @@ import * as express from 'express';
 import { Request, Response } from 'express';
 import { UserService } from '../service/userService';
 import * as jwt from 'jsonwebtoken';
+import * as  dotenv from 'dotenv';
+dotenv.config();
 
 const router = express.Router();
 const userService = new UserService();

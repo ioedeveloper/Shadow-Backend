@@ -4,6 +4,8 @@ import express = require('express');
 import {createConnection} from 'typeorm';
 import bodyParser = require('body-parser');
 import * as UserEndpoint from './api/user';
+import * as  dotenv from 'dotenv';
+dotenv.config();
 
 // establish database connection.
 (async () => {
@@ -13,11 +15,11 @@ import * as UserEndpoint from './api/user';
         } else {
             await createConnection({
                 type: 'mongodb',
+                useNewUrlParser: true,
                 // tslint:disable-next-line:max-line-length
                 url: `mongodb+srv://${process.env.MONGODB_ATLAS_USERNAME}:${process.env.MONGODB_ATLAS_PASSWORD}@cluster0-uxdic.mongodb.net/test?retryWrites=true&w=majority`,
                 ssl: true,
-                authSource: 'admin',
-                replicaSet: 'TestCluster0-shard-0',
+                entities: ['./src/model/*'],
             });
         }
         // tslint:disable-next-line:no-console
