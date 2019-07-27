@@ -19,7 +19,7 @@ dotenv.config();
                 // tslint:disable-next-line:max-line-length
                 url: `mongodb+srv://${process.env.MONGODB_ATLAS_USERNAME}:${process.env.MONGODB_ATLAS_PASSWORD}@cluster0-uxdic.mongodb.net/test?retryWrites=true&w=majority`,
                 ssl: true,
-                entities: ['./src/model/*'],
+                entities: ['build/model/**/*.js'],
             });
         }
         // tslint:disable-next-line:no-console
