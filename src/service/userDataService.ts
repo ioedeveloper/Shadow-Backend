@@ -13,6 +13,7 @@ export class UserDataService {
         userModel.email = newUser.email;
         userModel.extensionId = newUser.extensionId;
         userModel.jwtRefreshToken = newUser.jwtRefreshToken;
+        userModel.accessCode = newUser.accessCode;
         try {
             if (!this._db) await this._init();
             const user = await this._db.save(userModel);
@@ -63,10 +64,11 @@ export class UserDataService {
             user.deleted = false;
             try {
                 if (!this._db) await this._init();
-                await this._db.findOneAndUpdate({id: user._id}, {
+                await this._db.findOneAndUpdate({_id: user._id}, {
                     $set: {
                         email: user.email,
                         extensionId: user.extensionId,
+                        accessCode: user.accessCode,
                     },
                 });
                 return user;

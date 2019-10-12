@@ -4,6 +4,7 @@ interface IUser {
     _id ?: ObjectID;
     email ?: string;
     extensionId ?: string;
+    accessCode ?: string;
     jwtRefreshToken ?: string;
     createdAt ?: Date;
     lastActive ?: Date;
