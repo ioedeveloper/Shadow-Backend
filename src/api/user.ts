@@ -16,10 +16,9 @@ const userService = new UserService();
  * @description Signup endpoint for new users.
  */
 router.post('/signup', async function(req: Request, res: Response) {
-    const data = req.body;
 
     try {
-        const newUser = await userService.addUser(data);
+        const newUser = await userService.addUser();
         const response = {
             id: newUser._id,
             extensionId: newUser.extensionId,

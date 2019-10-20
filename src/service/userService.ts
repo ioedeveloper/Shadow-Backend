@@ -17,7 +17,8 @@ class UserService {
         this._data = new UserDataService();
     }
 
-    public async addUser(user: IUser): Promise<IUser> {
+    public async addUser(): Promise<IUser> {
+        const user: IUser = {};
         const randomString = Math.random().toString(36).substring(7);
         const hash = await bcrypt.hash(randomString, 10);
         const jwtRefreshToken = v1();
@@ -65,8 +66,6 @@ class UserService {
     }
 
     public async authorize(code: string, extensionId: string): Promise<IUser> {
-        // tslint:disable-next-line: no-console
-        console.log('state: ', extensionId);
         const requestOptions = {
             headers: {
                 'Content-Type': 'application/json',
@@ -80,8 +79,6 @@ class UserService {
         },
         requestOptions).then(async ({ data }) => {
             const user = await this._data.findOneBy({ extensionId });
-            // tslint:disable-next-line: no-console
-            console.log('user: ', user);
 
             if (user !== undefined) {
                 user.accessCode = data.access_token;
