@@ -30,9 +30,9 @@
   },
   "homepage": "https://github.com/ioedeveloper/Shadow-Backend#readme",
   "dependencies": {
-    "@types/bcrypt": "^3.0.0",
     "@types/jsonwebtoken": "^8.3.2",
     "@types/uuid": "^3.4.4",
+    "axios": "^0.19.0",
     "bcrypt": "^3.0.6",
     "body-parser": "^1.19.0",
     "chai": "^4.2.0",
@@ -41,12 +41,15 @@
     "jsonwebtoken": "^8.5.1",
     "mocha": "^6.1.4",
     "mongodb": "^3.2.7",
+    "opn": "^6.0.0",
     "ts-node": "^8.2.0",
     "typeorm": "^0.2.18",
     "typescript": "^3.5.1",
     "uuid": "^3.3.2"
   },
   "devDependencies": {
+    "@types/axios": "^0.14.0",
+    "@types/bcrypt": "^3.0.0",
     "@types/chai": "^4.1.7",
     "@types/dotenv": "^6.1.1",
     "@types/express": "^4.17.0",

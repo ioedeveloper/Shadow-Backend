@@ -12,6 +12,9 @@ export class User{
     extensionId ?: string;
 
     @Column()
+    accessCode ?: string;
+
+    @Column()
     jwtRefreshToken ?: string
 
     @Column()

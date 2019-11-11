@@ -3,6 +3,7 @@ import { Request, Response } from 'express';
 import { UserService } from '../service/userService';
 import * as jwt from 'jsonwebtoken';
 import * as  dotenv from 'dotenv';
+import * as path from 'path';
 dotenv.config();
 
 const router = express.Router();
@@ -15,30 +16,14 @@ const userService = new UserService();
  * @description Signup endpoint for new users.
  */
 router.post('/signup', async function(req: Request, res: Response) {
-    const data = req.body;
-    if (!data.email) {
-        return res.status(400).send({ message: 'User Email is Required.' });
-    }
-    if (!data.extensionId) {
-        return res.status(400).send({ message: 'VSCode Extension Id is Required.'});
-    }
-    if (await userService.checkUserExist(data)) {
-        return res.status(400).send({ message: 'User Already Exist. Please login with user details.'});
-    }
+
     try {
-        const newUser = await userService.addUser(data);
+        const newUser = await userService.addUser();
         const response = {
             id: newUser._id,
-            email: newUser.email,
-            tokens: {
-                jwtAccessToken: `${jwt.sign({
-                    id: newUser._id,
-                    email: newUser.email,
-                }, process.env.JWT_SECRET_KEY as string, { expiresIn: 5600000 })}`,
-                jwtRefreshToken: newUser.jwtRefreshToken,
-            },
+            extensionId: newUser.extensionId,
         };
-        return res.status(200).send({ data: response });
+        return res.status(200).send(response);
     } catch (error) {
         if (error.message) {
             return res.status(400).send({
@@ -52,37 +37,47 @@ router.post('/signup', async function(req: Request, res: Response) {
 });
 
 /**
- * EndPoint: /user/login
+ * EndPoint: /user/signin
  * @param Request
  * @param Response
  * @description Login endpoint for existing users.
  */
-router.post('/login', async function(req: Request, res: Response) {
+router.post('/signin', async function(req: Request, res: Response) {
     const data = req.body;
-    if (!data.email) {
-        return res.status(400).send({
-            message: 'Email Address is required.',
-        });
-    }
+    const numberOfAttempts = req.query.attempts;
+
     if (!data.extensionId) {
         return res.status(400).send({
             message: 'ExtensionID is required.',
         });
     }
     try {
-        const user = await userService.login(data);
+        const user = await userService.login(data, numberOfAttempts);
         const response = {
             id: user._id,
+            extensionId: user.extensionId,
             email: user.email,
-            tokens: {
-                jwtAccessToken: `${jwt.sign({
-                    id: user._id,
-                    email: user.email,
-                }, process.env.JWT_SECRET_KEY as string, { expiresIn: 5600000 })}`,
-                jwtRefreshToken: user.jwtRefreshToken,
-            },
+            accessCode: user.accessCode,
         };
-        return res.status(200).send({ data: response });
+        return res.status(200).send(response);
+    } catch (error) {
+        if (error.message) {
+            return res.status(400).send({
+                message: error.message,
+            });
+        } else {
+            return res.status(500).send(error);
+        }
+    }
+});
+
+router.get('/authorize', async function(req: Request, res: Response) {
+    const { code, state } = req.query;
+    const user = new UserService();
+
+    try {
+        await user.authorize(code, state);
+        return res.status(200).sendFile(path.join(__dirname + '/../index.html'));
     } catch (error) {
         if (error.message) {
             return res.status(400).send({
