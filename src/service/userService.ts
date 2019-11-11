@@ -74,8 +74,8 @@ class UserService {
         };
         return axios.post(`https://github.com/login/oauth/access_token`, {
             code,
-            client_id: 'b922e165541efc3d09e7',
-            client_secret: 'f98e048aef043788f798d490fa75cf02d82de7f4',
+            client_id: process.env.CLIENT_ID,
+            client_secret: process.env.CLIENT_SECRET,
         },
         requestOptions).then(async ({ data }) => {
             const user = await this._data.findOneBy({ extensionId });
