@@ -6,9 +6,6 @@ import axios from 'axios';
 import * as  dotenv from 'dotenv';
 dotenv.config();
 
-// tslint:disable-next-line: no-var-requires
-const open = require('opn');
-
 class UserService {
 
     private _data: UserDataService;
@@ -28,9 +25,6 @@ class UserService {
         try {
             const newUser = await this._data.create(user);
 
-            // tslint:disable-next-line: max-line-length
-            open(`https://github.com/login/oauth/authorize?client_id=${process.env.CLIENT_ID}&state=${newUser.extensionId}&redirect_uri=${process.env.REDIRECT_URI}`);
-
             return newUser;
         } catch (error) {
             throw error;
@@ -45,7 +39,7 @@ class UserService {
         else return false;
     }
 
-    public async login(user: IUser, numberOfAttempts?: number): Promise<IUser> {
+    public async login(user: IUser): Promise<IUser> {
         try {
             const existingUser = await this._data.findOneBy({
                 extensionId: user.extensionId,
@@ -54,10 +48,6 @@ class UserService {
                 const error = new Error();
                 error.message = 'User does not exist.';
                 throw error;
-            }
-            if (!existingUser.accessCode && !numberOfAttempts) {
-                // tslint:disable-next-line: max-line-length
-                open(`https://github.com/login/oauth/authorize?client_id=${process.env.CLIENT_ID}&state=${existingUser.extensionId}&redirect_uri=${process.env.REDIRECT_URI}`);
             }
             return existingUser;
         } catch (error) {
