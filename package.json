@@ -17,11 +17,7 @@
     "shadow",
     "extension",
     "git",
-    "git",
-    "extension",
-    "vscode",
-    "vscode",
-    "git"
+    "vscode"
   ],
   "author": "@ioedeveloper",
   "license": "ISC",
@@ -41,7 +37,6 @@
     "jsonwebtoken": "^8.5.1",
     "mocha": "^6.1.4",
     "mongodb": "^3.2.7",
-    "opn": "^6.0.0",
     "ts-node": "^8.2.0",
     "typeorm": "^0.2.18",
     "typescript": "^3.5.1",

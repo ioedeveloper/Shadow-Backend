@@ -23,6 +23,7 @@ router.post('/signup', async function(req: Request, res: Response) {
             id: newUser._id,
             extensionId: newUser.extensionId,
         };
+
         return res.status(200).send(response);
     } catch (error) {
         if (error.message) {
@@ -44,7 +45,6 @@ router.post('/signup', async function(req: Request, res: Response) {
  */
 router.post('/signin', async function(req: Request, res: Response) {
     const data = req.body;
-    const numberOfAttempts = req.query.attempts;
 
     if (!data.extensionId) {
         return res.status(400).send({
@@ -52,7 +52,7 @@ router.post('/signin', async function(req: Request, res: Response) {
         });
     }
     try {
-        const user = await userService.login(data, numberOfAttempts);
+        const user = await userService.login(data);
         const response = {
             id: user._id,
             extensionId: user.extensionId,
