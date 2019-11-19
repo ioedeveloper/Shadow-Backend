@@ -1,8 +1,8 @@
 import * as express from 'express';
 import { Request, Response } from 'express';
 import { UserService } from '../service/userService';
-import * as jwt from 'jsonwebtoken';
 import * as  dotenv from 'dotenv';
+import * as path from 'path';
 dotenv.config();
 
 const router = express.Router();
@@ -76,7 +76,7 @@ router.get('/authorize', async function(req: Request, res: Response) {
 
     try {
         await user.authorize(code, state);
-        return res.status(200).sendFile('../index.html');
+        return res.status(200).sendFile(path.resolve('public/views/auth_success.html'));
     } catch (error) {
         if (error.message) {
             return res.status(400).send({
