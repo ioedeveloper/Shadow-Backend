@@ -80,6 +80,21 @@ class UserService {
             throw new Error('Authorization Failed!');
         });
     }
+
+    public async getAccessCode(extensionId: string) {
+        try {
+            const user = await this._data.findOneBy({
+                extensionId,
+            });
+
+            if (user && user.accessCode) {
+                return user.accessCode;
+            }
+            throw new Error('Access Code Not Found!');
+        } catch (error) {
+            throw error;
+        }
+    }
 }
 
 export { UserService };
