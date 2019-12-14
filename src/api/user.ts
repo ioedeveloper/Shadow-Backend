@@ -109,6 +109,12 @@ router.get('/authorize', async function(req: Request, res: Response) {
     }
 });
 
+/**
+ * EndPoint: /user/accessCode
+ * @param Request
+ * @param Response
+ * @description Access Code endpoint to retrieve user accessCode.
+ */
 router.get('/accessCode', isAuthorized, async function(req: Request, res: Response) {
     const { extensionId } = req.query;
 
