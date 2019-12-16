@@ -12,4 +12,8 @@ interface IUser {
     deletedBy ?: User;
 }
 
-export { IUser };
+interface IUserJWTSignature {
+    id: ObjectID;
+}
+
+export { IUser, IUserJWTSignature };

@@ -7,9 +7,9 @@ import * as UserEndpoint from './api/user';
 import * as  dotenv from 'dotenv';
 dotenv.config();
 
-// establish database connection.
-(async () => {
+export default (async () => {
     try {
+        // establish database connection.
         if (process.env.NODE_ENV === 'development') {
             await createConnection();
         } else {
@@ -49,8 +49,11 @@ dotenv.config();
             // tslint:disable-next-line:no-console
             console.log(`Listening at http://localhost:${port}/`);
         });
+
+        return app;
     } catch (error) {
         // tslint:disable-next-line:no-console
         console.error(`Error: ${error}`);
+        throw error;
     }
 })();
