@@ -3,6 +3,7 @@ import { UserDataService } from './userDataService';
 import * as bcrypt from 'bcrypt';
 import { v1 } from 'uuid';
 import axios from 'axios';
+import appConfig from '../config';
 import * as  dotenv from 'dotenv';
 dotenv.config();
 

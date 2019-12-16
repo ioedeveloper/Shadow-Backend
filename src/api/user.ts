@@ -4,7 +4,7 @@ import { UserService } from '../service/userService';
 import * as  dotenv from 'dotenv';
 import * as path from 'path';
 import * as jwt from 'jsonwebtoken';
-import * as appConfig from '../config';
+import appConfig from '../config';
 import { isAuthorized } from '../middleware/authorization';
 dotenv.config();
 
@@ -27,7 +27,7 @@ router.post('/signup', async function(req: Request, res: Response) {
                 jwtAccessToken: `${
                     jwt.sign({
                         id: newUser._id,
-                    }, appConfig.default.jwtSecretKey, { expiresIn: 3600000 })
+                    }, appConfig.jwtSecretKey, { expiresIn: 3600000 })
                 }`,
                 jwtRefreshToken: newUser.jwtRefreshToken,
             },
@@ -68,7 +68,7 @@ router.post('/signin', async function(req: Request, res: Response) {
                 jwtAccessToken: `${
                     jwt.sign({
                         id: user._id,
-                    }, appConfig.default.jwtSecretKey, { expiresIn: 3600000 })
+                    }, appConfig.jwtSecretKey, { expiresIn: 3600000 })
                 }`,
                 jwtRefreshToken: user.jwtRefreshToken,
             },
